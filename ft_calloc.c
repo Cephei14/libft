@@ -16,16 +16,17 @@ void	*ft_calloc(size_t num, size_t size)
 {
 	void	*ptr;
 
-	if (num == 0 && size != 0)
-		return (NULL);
-	else if (num != 0 && size == 0)
-		return (NULL);
-	else
+	if (size != 0 && num > SIZE_MAX / size)
 	{
-		ptr = malloc(num * size);
-		if (ptr == NULL)
-			return (NULL);
-		ft_memset(ptr, '\0', num * size);
+		errno = ENOMEM;
+		return (NULL);
 	}
+	ptr = malloc(num * size);
+	if (ptr == NULL)
+	{
+		errno = ENOMEM;
+		return (NULL);
+	}
+	ft_memset(ptr, '\0', num * size);
 	return (ptr);
 }

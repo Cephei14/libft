@@ -19,6 +19,9 @@
 # include <string.h>
 # include <strings.h>
 # include <stdlib.h>
+# include <errno.h>
+# include <limits.h>
+# include <stdint.h>
 
 typedef struct s_list
 {

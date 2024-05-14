@@ -12,21 +12,23 @@
 
 #include "libft.h"
 
-static int	ft_intlen(int n, int *s)
+static int	ft_intlen(int *n, int *s)
 {
+	int	i;
 	int	l;
 
-	if (n > 0)
+	if (*n >= 0)
 		(*s) = 0;
 	else
 	{
 		(*s) = 1;
-		n = -n;
+		(*n) = -(*n);
 	}
 	l = 0;
-	while (n > 0)
+	i = (*n);
+	while (i > 0)
 	{
-		n = n / 10;
+		i = i / 10;
 		l++;
 	}
 	if (*s == 1)
@@ -36,40 +38,34 @@ static int	ft_intlen(int n, int *s)
 
 static char	*limit(int n)
 {
-	char	*str;
-
 	if (n == 0)
-		str = "0";
+		return ("0");
 	else if (n == -2147483648)
-		str = "-2147483648";
-	else
-		str = NULL;
-	return (str);
+		return ("-2147483648");
+	return (NULL);
 }
 
 char	*ft_itoa(int n)
 {
 	char	*str;
 	int		i;
-	int		j;
+	int		len;
 	int		s;
 
-	j = ft_intlen(n, &s);
-	i = j;
 	if (limit(n))
 		return (ft_strdup(limit(n)));
-	str = malloc((sizeof (char)) * j + 1);
+	len = ft_intlen(&n, &s);
+	i = len;
+	str = malloc((sizeof (char)) * len + 1);
 	if (str == NULL)
 		return (NULL);
-	if (s == 1)
-		n = -n;
 	while (--i > -1)
 	{
 		str[i] = ((n % 10) + '0');
 		n = n / 10;
 	}
 	if (s == 1)
-	str[0] = '-';
-	str[j] = '\0';
+		str[0] = '-';
+	str[len] = '\0';
 	return (str);
 }

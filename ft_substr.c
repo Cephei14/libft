@@ -23,10 +23,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	n = ft_strlen(s);
 	if (start >= n)
 		return (ft_strdup(""));
-	if (n >= len)
-		l = len;
-	else
+	if (start + len > n)
 		l = n - start;
+	else
+		l = len;
 	str = malloc((sizeof(char) * l) + 1);
 	if (str == NULL)
 		return (NULL);
